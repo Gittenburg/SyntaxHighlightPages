@@ -3,9 +3,10 @@ namespace MediaWiki\Extension\SyntaxHighlightPages;
 
 class Hooks {
 	public static function onContentHandlerDefaultModelFor( \Title $title, &$model ) {
-		global $wgSyntaxHighlightPagesSuffixes;
 		$parts = explode('.', $title->getDBkey());
-		if ($title->isContentPage() && in_array(end($parts), $wgSyntaxHighlightPagesSuffixes)){
+		$ext = end($parts);
+		$map = Content::getExtensionMap();
+		if ($title->isContentPage() && isset($map[$ext])) {
 			$model = Content::MODEL;
 			return false;
 		}
