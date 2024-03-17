@@ -5,7 +5,7 @@ class Hooks {
 	public static function onContentHandlerDefaultModelFor( \Title $title, &$model ) {
 		$parts = explode('.', $title->getDBkey());
 		$ext = end($parts);
-		$map = Content::getExtensionMap();
+		$map = ContentHandler::getExtensionMap();
 		if ($title->isContentPage() && isset($map[$ext])) {
 			$model = Content::MODEL;
 			return false;
